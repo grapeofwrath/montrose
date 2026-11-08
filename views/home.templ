@@ -1,0 +1,18 @@
+package views
+
+templ Home(reviews []Review) {
+	@Layout("Home") {
+		@Header("/gallery", "Gallery")
+		<div class="flex flex-col gap-9 py-12 px-4">
+			@Profile("/assets/marcus.webp", "Marcus Montgomery", "/assets/plates/book1-plate30.jpg", false) {
+				Marcus has always had a passion to build and create, and an eye for detail. In 2021 he discovered his love for finish carpentry and fine woodworking through a restoration apprenticeship. He and his wife have one son and seek to do all to the glory of God.
+			}
+			<!--
+			@Profile("/assets/gil.webp", "Gilead Rose", "/assets/plates/book4-plate68.jpg", true) {
+				Gilead loves finish carpentry so much he sacrificed half a finger. What more do you need to know?
+			}
+			-->
+		</div>
+		@Reviews(reviews)
+	}
+}

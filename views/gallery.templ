@@ -1,0 +1,100 @@
+package views
+
+import (
+	"encoding/json"
+	"strconv"
+)
+
+type Image struct {
+	Src string
+	Alt string
+	Num int // 1-based
+}
+
+func galleryData(images []Image) string {
+	b, _ := json.Marshal(images)
+	return carouselData(len(images), "grid: false, imgs: "+string(b)+
+		", show(k) { this.i = k; this.grid = false; this.$nextTick(() => this.$refs.stage.scrollIntoView()) },")
+}
+
+templ Gallery(images []Image) {
+	@Layout("Gallery") {
+		@Header("/", "Home")
+		if len(images) > 0 {
+			<div
+				x-data={ galleryData(images) }
+				x-ref="stage"
+				x-on:keydown.arrow-left.window="!grid && go(-1)"
+				x-on:keydown.arrow-right.window="!grid && go(1)"
+				class="mx-auto w-full max-w-5xl scroll-mt-20 p-4"
+			>
+				<div class="flex items-center gap-4 pb-6 pt-2">
+					<span class="h-px flex-1 bg-accent opacity-30" aria-hidden="true"></span>
+					@Button("Grid", "", false, templ.Attributes{
+						"x-on:click": "grid = !grid",
+						"x-text":     "grid ? 'Carousel' : 'Grid'",
+					})
+					<span class="h-px flex-1 bg-accent opacity-30" aria-hidden="true"></span>
+				</div>
+				<figure
+					x-show="!grid"
+					class="mx-auto max-w-4xl touch-pan-y bg-zinc-800 p-1.5 shadow-lg"
+					x-on:touchstart.passive="start($event)"
+					x-on:touchend="end($event)"
+					x-on:wheel="wheel($event)"
+				>
+					<div class="relative border border-accent/40 p-1">
+						<a x-bind:href="imgs[i].Src" x-on:click.prevent>
+							<img
+								src={ images[0].Src }
+								alt={ images[0].Alt }
+								x-bind:src="imgs[i].Src"
+								x-bind:alt="imgs[i].Alt"
+								draggable="false"
+								class="h-[67dvh] sm:h-[72dvh] w-full select-none bg-zinc-900 object-contain"
+							/>
+						</a>
+						if len(images) > 1 {
+							@ArrowButton("Previous photo", "go(-1)", "left-2", true)
+							@ArrowButton("Next photo", "go(1)", "right-2", false)
+						}
+					</div>
+					<figcaption class="pt-1.5 text-center font-serif text-[0.7rem] uppercase tracking-[0.3em] text-zinc-200">
+						Fig. <span x-text="i + 1">1</span> of { strconv.Itoa(len(images)) }
+					</figcaption>
+				</figure>
+				<div x-show="grid" x-cloak class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
+					for _, img := range images {
+						@GalleryFigure(img)
+					}
+				</div>
+			</div>
+		}
+	}
+}
+
+templ ArrowButton(label, action, side string, flip bool) {
+	<button
+		type="button"
+		x-on:click={ action }
+		aria-label={ label }
+		class={ "absolute top-1/2 -translate-y-1/2 bg-vellum/60 p-2 text-zinc-900 transition duration-300 hover:bg-zinc-900/70 hover:text-accent", side }
+	>
+		@SVG("32", "fill-current stroke-none "+mirror(flip)) {
+			<polygon points="6,2 20,12 6,22 12,12"></polygon>
+		}
+	</button>
+}
+
+templ GalleryFigure(img Image) {
+	<figure class="bg-zinc-800 p-1.5 shadow-lg">
+		<a href={ img.Src } x-on:click={ "$event.preventDefault(); show(" + strconv.Itoa(img.Num-1) + ")" }>
+			<div class="border border-accent/40 p-1">
+				<img src={ img.Src } alt={ img.Alt } loading="lazy" draggable="false" class="aspect-square w-full object-cover"/>
+			</div>
+		</a>
+		<figcaption class="pt-1.5 text-center font-serif text-[0.7rem] uppercase tracking-[0.3em] text-zinc-200">
+			Fig. { strconv.Itoa(img.Num) }
+		</figcaption>
+	</figure>
+}

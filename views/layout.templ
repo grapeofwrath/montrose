@@ -1,0 +1,113 @@
+package views
+
+templ Layout(title string) {
+	<!doctype html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>{ title } | Montrose Millwork</title>
+			<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+			<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+			<style>[x-cloak] { display: none !important; }</style>
+			<style type="text/tailwindcss">
+				@theme {
+					--color-main: #60a5fa;
+					--color-accent: #CA9C68;
+					--color-vellum: #e8e0cc;
+				}
+			</style>
+		</head>
+		<body class="bg-zinc-900 text-gray-100 relative flex flex-col min-h-dvh max-w-screen">
+			{ children... }
+			<footer class="relative isolate overflow-hidden mt-auto bg-zinc-900 border-t border-zinc-700 px-6 pt-8 pb-24 sm:pb-8">
+				@PlateBg("/assets/plates/book1-plate14.jpg", "inset-0 size-full object-cover opacity-[0.07] invert")
+				<div class="relative">
+					<div class="mx-auto max-w-5xl grid gap-9 text-center sm:grid-cols-2 sm:gap-x-12 sm:text-left">
+						<div class="sm:text-right">
+							<address class="not-italic">
+								Montrose Millwork, LLC.<br/>
+								5417 W Werner RD<br/>
+								Bremerton, WA 98312<br/>
+							</address>
+							<p>LN: MONTRML741P1</p>
+						</div>
+						<div>
+							<div><span class="font-bold">Mon-Fri</span> 8:00AM - 6:00PM</div>
+							<div><span class="font-bold">Closed</span> Saturday & Sunday</div>
+							<p><a href="tel:+13608505204" class="hover:underline decoration-2 decoration-accent">360-850-5204</a></p>
+							<p><a href="mailto:info@montrosemillwork.com" class="hover:underline decoration-2 decoration-accent">info@montrosemillwork.com</a></p>
+						</div>
+					</div>
+					<div class="flex gap-2 justify-center mt-3">
+						@SocialLink("https://www.instagram.com/montrose.millwork", "Instagram") {
+							@SVG("24", "") {
+								<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+								<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+								<line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+							}
+						}
+						@SocialLink("https://www.facebook.com/people/Montrose-Millwork-LLC/61596000902110", "Facebook") {
+							@SVG("24", "") {
+								<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+							}
+						}
+						@SocialLink("https://nextdoor.com/pages/montrose-millwork-llc-bremerton-wa", "Nextdoor") {
+							@SVG("24", "") {
+								<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+								<polyline points="9 22 9 12 15 12 15 22"></polyline>
+							}
+						}
+					</div>
+					<div class="mx-auto mt-8 max-w-5xl border-t border-zinc-700 pt-4 flex flex-col gap-1 items-center text-center text-sm text-zinc-400">
+						<a href="/" class="hover:underline decoration-2 decoration-accent">&copy; 2026 Montrose Millwork, LLC.</a>
+						<p class="text-xs text-zinc-500">
+							Drawings from Palladio's <em>Four Books of Architecture</em> (Ware, 1738), public domain, via
+							<a href="https://www.c82.net/architecture" class="hover:underline decoration-2 decoration-accent hover:text-zinc-300" target="_blank" rel="noopener noreferrer">c82.net</a>.
+						</p>
+					</div>
+				</div>
+			</footer>
+		</body>
+	</html>
+}
+
+templ Header(href, label string) {
+	<header id="header" class="relative isolate overflow-hidden bg-[url(/assets/ash-bg-02.webp)] bg-center bg-cover flex flex-col justify-center min-h-72 sm:min-h-92">
+		<div class="relative pb-6 text-center text-zinc-900 uppercase">
+			<h1 class="text-5xl sm:text-6xl font-bold font-serif">Montrose</h1>
+			<h1 class="text-4xl sm:text-5xl tracking-widest">- Millwork -</h1>
+		</div>
+		<div class="relative mx-auto">
+			@NavButtons(href, label)
+		</div>
+	</header>
+	@Navbar(href, label)
+}
+
+templ Navbar(href, label string) {
+	<nav
+		x-data="{ shown: false }"
+		x-init="new IntersectionObserver(([e]) => shown = !e.isIntersecting).observe(document.getElementById('header'))"
+		x-bind:class="{ 'translate-y-full sm:-translate-y-full': !shown }"
+		x-bind:inert="!shown"
+		class="fixed inset-x-0 bottom-0 z-40 flex translate-y-full items-center justify-between gap-3 border-t border-zinc-700 bg-zinc-900/95 px-3 py-2 backdrop-blur transition-transform duration-300 sm:top-0 sm:bottom-auto sm:-translate-y-full sm:border-t-0 sm:border-b"
+	>
+		<a href="/" class="flex min-w-0 flex-col items-center leading-tight uppercase">
+			<span class="font-serif text-sm font-bold tracking-wide sm:text-lg">Montrose</span>
+			<span class="text-[0.6rem] tracking-widest sm:text-xs">- Millwork -</span>
+		</a>
+		@NavButtons(href, label)
+	</nav>
+}
+
+templ NavButtons(href, label string) {
+	<div class="p-1 border border-zinc-600">
+		<div class="flex items-stretch divide-x divide-zinc-900/50">
+			@Button(label, href, false, nil)
+			@Modal("Contact", "max-w-md lg:max-w-3xl h-118 sm:h-144 lg:h-92") {
+				@ContactPanel()
+			}
+		</div>
+	</div>
+}

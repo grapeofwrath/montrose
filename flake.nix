@@ -1,0 +1,120 @@
+{
+  description = "A Nix-flake-based Go development environment";
+
+  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
+
+  outputs =
+    { self, ... }@inputs:
+
+    let
+      goVersion = 27; # Change this to update the whole stack
+
+      supportedSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
+      forEachSupportedSystem =
+        f:
+        inputs.nixpkgs.lib.genAttrs supportedSystems (
+          system:
+          f {
+            inherit system;
+            pkgs = import inputs.nixpkgs {
+              inherit system;
+              overlays = [ inputs.self.overlays.default ];
+            };
+          }
+        );
+    in
+    {
+      overlays.default = final: prev: {
+        go = final."go_1_${toString goVersion}";
+      };
+
+      packages = forEachSupportedSystem (
+        { pkgs, ... }:
+        {
+          default = pkgs.buildGoModule {
+            pname = "montrose";
+            version = "1.0.0";
+            src = ./.;
+            vendorHash = pkgs.lib.fakeHash;
+            postInstall = ''
+              mkdir -p $out/share/montrose
+              cp -r public $out/share/montrose/
+            '';
+          };
+        }
+      );
+
+      nixosModules.default =
+        {
+          config,
+          lib,
+          pkgs,
+          ...
+        }:
+        let
+          cfg = config.services.montrose;
+          site = self.packages.${pkgs.stdenv.hostPlatform.system}.default;
+        in
+        {
+          options.services.montrose = {
+            enable = lib.mkEnableOption "the Montrose Millwork website";
+            domain = lib.mkOption {
+              type = lib.types.str;
+              example = "montrosemillwork.com";
+            };
+          };
+
+          config = lib.mkIf cfg.enable {
+            systemd.services.montrose = {
+              wantedBy = [ "multi-user.target" ];
+              after = [ "network.target" ];
+              serviceConfig = {
+                ExecStart = "${site}/bin/montRose";
+                WorkingDirectory = "${site}/share/montrose";
+                DynamicUser = true;
+                Restart = "on-failure";
+              };
+            };
+
+            services.caddy = {
+              enable = true;
+              virtualHosts."${cfg.domain}, www.${cfg.domain}".extraConfig = "reverse_proxy localhost:5050";
+            };
+
+            networking.firewall.allowedTCPPorts = [
+              80
+              443
+            ];
+          };
+        };
+
+      devShells = forEachSupportedSystem (
+        { pkgs, system }:
+        {
+          default = pkgs.mkShellNoCC {
+            packages = with pkgs; [
+              # go (version is specified by overlay)
+              go
+
+              # goimports, godoc, etc.
+              gotools
+              gcc
+              air
+              templ
+
+              # https://github.com/golangci/golangci-lint
+              golangci-lint
+
+              self.formatter.${system}
+            ];
+          };
+        }
+      );
+
+      formatter = forEachSupportedSystem ({ pkgs, ... }: pkgs.nixfmt);
+    };
+}

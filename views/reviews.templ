@@ -1,0 +1,55 @@
+package views
+
+import "strconv"
+
+type Review struct {
+	Comment string `json:"comment"`
+	Author  string `json:"author"`
+}
+
+// All slides share one grid cell, so the section is as tall as the longest review.
+templ Reviews(reviews []Review) {
+	if len(reviews) > 0 {
+		<section class="bg-zinc-900 px-6 py-14 text-accent sm:py-20" aria-roledescription="carousel" aria-label="Customer reviews">
+			<div x-data={ carouselData(len(reviews), "") } class="mx-auto max-w-3xl text-center">
+				<div
+					class="grid touch-pan-y overflow-x-clip"
+					x-on:touchstart.passive="start($event)"
+					x-on:touchend="end($event)"
+					x-on:wheel="wheel($event)"
+				>
+					for idx, r := range reviews {
+						<figure
+							class="col-start-1 row-start-1 flex flex-col items-center justify-center transition duration-500 ease-out motion-reduce:duration-0"
+							x-bind:class={ "pos(" + strconv.Itoa(idx) + ")" }
+							x-bind:aria-hidden={ "i !== " + strconv.Itoa(idx) }
+						>
+							<blockquote class="font-serif text-xl italic leading-relaxed text-balance sm:text-3xl">
+								&ldquo;{ r.Comment }&rdquo;
+							</blockquote>
+							<figcaption class="mt-5 font-serif text-xs uppercase tracking-[0.3em] opacity-70 sm:text-sm">
+								&mdash; { r.Author }
+							</figcaption>
+						</figure>
+					}
+				</div>
+				if len(reviews) > 1 {
+					<div class="mt-8 flex items-center justify-center" role="group" aria-label="Choose a review">
+						for idx := range reviews {
+							<button
+								type="button"
+								x-on:click={ "i = " + strconv.Itoa(idx) }
+								x-bind:class={ "i === " + strconv.Itoa(idx) + " ? 'opacity-100 scale-125' : 'opacity-30 hover:opacity-60'" }
+								x-bind:aria-current={ "i === " + strconv.Itoa(idx) }
+								aria-label={ "Show review " + strconv.Itoa(idx+1) + " of " + strconv.Itoa(len(reviews)) }
+								class="p-3 text-sm leading-none transition duration-300"
+							>
+								&#9670;
+							</button>
+						}
+					</div>
+				}
+			</div>
+		</section>
+	}
+}

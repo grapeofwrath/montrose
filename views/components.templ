@@ -1,0 +1,173 @@
+package views
+
+import "strconv"
+
+func mirror(flip bool) string {
+	if flip {
+		return "-scale-x-100"
+	}
+	return ""
+}
+
+// extra is spliced into the state for page-specific fields.
+// pos(k) parks inactive slides right if they come next, left otherwise.
+// wheel() handles trackpad swipes (horizontal wheel events) and ignores the rest of
+// a gesture, including momentum, until events stop for 150ms.
+func carouselData(n int, extra string) string {
+	return "{ " + extra + " i: 0, n: " + strconv.Itoa(n) + ", x: 0, y: 0, wx: 0, locked: false, wt: null," +
+		" go(d) { this.i = (this.i + d + this.n) % this.n }," +
+		" pos(k) { const r = (k - this.i + this.n) % this.n; if (r === 0) return 'translate-x-0 opacity-100';" +
+		" return (r <= this.n / 2 ? 'translate-x-10' : '-translate-x-10') + ' opacity-0 pointer-events-none' }," +
+		" start(e) { this.x = e.touches[0].clientX; this.y = e.touches[0].clientY }," +
+		" end(e) { const t = e.changedTouches[0]; const dx = t.clientX - this.x; const dy = t.clientY - this.y;" +
+		" if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) { this.go(dx < 0 ? 1 : -1) } }," +
+		" wheel(e) { if (this.n < 2 || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return; e.preventDefault();" +
+		" clearTimeout(this.wt); this.wt = setTimeout(() => { this.wx = 0; this.locked = false }, 150);" +
+		" if (this.locked) return; this.wx += e.deltaX;" +
+		" if (Math.abs(this.wx) > 50) { this.go(this.wx > 0 ? 1 : -1); this.wx = 0; this.locked = true } } }"
+}
+
+func buttonClass(dark bool) string {
+	base := "flex items-center px-4 py-3 font-serif text-sm font-bold uppercase tracking-[0.25em] transition duration-300 sm:px-5 "
+	if dark {
+		return base + "bg-zinc-900 text-vellum hover:bg-zinc-700"
+	}
+	return base + "bg-vellum text-zinc-900 hover:bg-white"
+}
+
+// Button renders a link when href is set, otherwise a button. attrs may be nil.
+templ Button(label, href string, dark bool, attrs templ.Attributes) {
+	if href != "" {
+		<a href={ href } class={ buttonClass(dark) } { attrs... }>{ label }</a>
+	} else {
+		<button type="button" class={ buttonClass(dark) } { attrs... }>{ label }</button>
+	}
+}
+
+templ Modal(label string, panelClass string) {
+	<div x-data="{ isOpen: false }" class="inline-flex items-stretch">
+		@Button(label, "", true, templ.Attributes{"x-on:click": "isOpen = true"})
+		<template x-teleport="body">
+			<div
+				x-show="isOpen"
+				x-transition.opacity
+				@click.self="isOpen = false"
+				@keydown.escape.window="isOpen = false"
+				role="dialog"
+				aria-modal="true"
+				aria-label={ label }
+				class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
+				style="display: none;"
+			>
+				<div class={ "relative w-full flex flex-col max-h-[90dvh]", panelClass }>
+					<div class="min-h-0 flex-1 overflow-y-auto shadow-xl">
+						{ children... }
+					</div>
+					<button
+						type="button"
+						@click="isOpen = false"
+						aria-label="Close"
+						class="absolute top-2 right-2 z-10 p-2 rounded-full bg-black/40 text-white hover:bg-black/60 transition duration-300"
+					>
+						@SVG("24", "text-white") {
+							<line x1="18" y1="6" x2="6" y2="18"></line>
+							<line x1="6" y1="6" x2="18" y2="18"></line>
+						}
+					</button>
+				</div>
+			</div>
+		</template>
+	</div>
+}
+
+templ SVG(size, class string) {
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width={ size }
+		height={ size }
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		class={ class }
+	>
+		{ children... }
+	</svg>
+}
+
+templ SocialLink(href, label string) {
+	<a
+		href={ href }
+		target="_blank"
+		rel="noopener noreferrer"
+		aria-label={ label }
+		title={ label }
+		class="p-2 rounded-full text-gray-100 hover:bg-zinc-700 hover:text-accent transition duration-300"
+	>
+		{ children... }
+	</a>
+}
+
+// parent div needs "relative isolate overflow-hidden", content above needs "relative"
+templ PlateBg(src string, class string) {
+	<img
+		src={ src }
+		alt=""
+		aria-hidden="true"
+		loading="lazy"
+		draggable="false"
+		class={ "pointer-events-none absolute select-none", class }
+	/>
+}
+
+templ ContactPanel() {
+	<div class="flex min-h-full flex-col bg-zinc-900 text-zinc-100 ring-1 ring-zinc-700 lg:flex-row">
+		<div class="min-h-42 sm:min-h-48 lg:w-3/5 bg-[url(/assets/ash-bg-02.webp)] bg-cover bg-center flex justify-center items-center font-serif font-bold uppercase text-5xl sm:text-6xl text-zinc-900">
+			<p class="opacity-90">Contact</p>
+		</div>
+		<div class="flex flex-1 items-center justify-center p-4 sm:p-6">
+			<div class="flex w-full flex-col gap-4 border-accent p-4 text-center font-serif text-1xl sm:gap-5 sm:p-6 sm:text-2xl">
+				<div>
+					<div><span class="font-bold">Mon-Fri</span> 8:00AM - 6:00PM</div>
+					<div><span class="font-bold">Closed</span> Saturday & Sunday</div>
+				</div>
+				<div class="flex items-center gap-3 text-accent" aria-hidden="true">
+					<span class="h-px flex-1 bg-current opacity-30"></span>
+					<span class="text-xs">&#9670;</span>
+					<span class="h-px flex-1 bg-current opacity-30"></span>
+				</div>
+				<div class="break-words">
+					<a href="tel:+13608505204" class="transition duration-300 hover:underline decoration-2 sm:decoration-3 decoration-accent">360-850-5204</a><br/>
+					<a href="mailto:info@montrosemillwork.com" class="transition duration-300 hover:underline decoration-2 sm:decoration-3 decoration-accent">info@montrosemillwork.com</a>
+				</div>
+				<p>5417 W Werner RD<br/>Bremerton, WA 98312</p>
+			</div>
+		</div>
+	</div>
+}
+
+templ Profile(image, name, plate string, flip bool) {
+	<article class="relative isolate mx-auto w-full max-w-5xl overflow-hidden bg-zinc-900 ring-1 ring-zinc-700">
+		@PlateBg(plate, "inset-0 size-full object-cover opacity-[0.07] invert "+mirror(flip))
+		<div class={ "relative flex flex-col items-center gap-6 p-5 sm:p-8", templ.KV("sm:flex-row", !flip), templ.KV("sm:flex-row-reverse", flip) }>
+			<figure class="shrink-0">
+				<div class="bg-zinc-800 p-1.5 shadow-lg">
+					<div class="border border-zinc-500/40 p-1">
+						<img src={ image } alt={ name } class="size-64 max-w-full object-cover sepia-[.15]"/>
+					</div>
+				</div>
+			</figure>
+			<div class="flex w-72 max-w-full flex-col gap-3 text-left sm:w-auto sm:flex-1">
+				<p class="font-serif text-3xl">{ name }</p>
+				<div class="flex items-center gap-3 text-accent" aria-hidden="true">
+					<span class="h-px w-8 bg-current opacity-60"></span>
+					<span class="text-xs">&#9670;</span>
+					<span class="h-px flex-1 bg-current opacity-30"></span>
+				</div>
+				<p class="font-serif text-lg text-zinc-200">{ children... }</p>
+			</div>
+		</div>
+	</article>
+}

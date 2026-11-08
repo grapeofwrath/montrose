@@ -1,0 +1,4 @@
+[build]
+  cmd = "templ generate && go build -o ./tmp/main ."
+  include_ext = ["go", "templ"]
+  exclude_regex = ["_templ\\.go"]
