@@ -1,3 +1,4 @@
 originals/
 tmp/
 scripts/
+.direnv/
