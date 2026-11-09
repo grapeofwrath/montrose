@@ -79,16 +79,6 @@
                 Restart = "on-failure";
               };
             };
-
-            services.caddy = {
-              enable = true;
-              virtualHosts."${cfg.domain}, www.${cfg.domain}".extraConfig = "reverse_proxy localhost:5050";
-            };
-
-            networking.firewall.allowedTCPPorts = [
-              80
-              443
-            ];
           };
         };
 
