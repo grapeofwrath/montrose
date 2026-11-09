@@ -62,10 +62,6 @@
         {
           options.services.montrose = {
             enable = lib.mkEnableOption "the Montrose Millwork website";
-            domain = lib.mkOption {
-              type = lib.types.str;
-              example = "montrosemillwork.com";
-            };
           };
 
           config = lib.mkIf cfg.enable {
