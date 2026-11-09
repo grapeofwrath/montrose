@@ -1,7 +1,7 @@
 {
   description = "A Nix-flake-based Go development environment";
 
-  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # unstable Nixpkgs
 
   outputs =
     { self, ... }@inputs:
@@ -39,7 +39,7 @@
             pname = "montrose";
             version = "1.0.0";
             src = ./.;
-            vendorHash = pkgs.lib.fakeHash;
+            vendorHash = "sha256-csjga/uxJMtqH3Zxf02/kFhxqO22/oSNLlUWSd3s1D8=";
             postInstall = ''
               mkdir -p $out/share/montrose
               cp -r public $out/share/montrose/
