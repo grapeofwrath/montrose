@@ -7,6 +7,10 @@ templ Layout(title string) {
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<title>{ title } | Montrose Millwork</title>
+			<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+			<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+			<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+			<link rel="manifest" href="/assets/favicon/site.webmanifest">
 			<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 			<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 			<style>[x-cloak] { display: none !important; }</style>
@@ -74,9 +78,14 @@ templ Layout(title string) {
 
 templ Header(href, label string) {
 	<header id="header" class="relative isolate overflow-hidden bg-[url(/assets/ash-bg-02.webp)] bg-center bg-cover flex flex-col justify-center min-h-72 sm:min-h-92">
-		<div class="relative pb-6 text-center text-zinc-900 uppercase">
-			<h1 class="text-5xl sm:text-6xl font-bold font-serif">Montrose</h1>
-			<h1 class="text-4xl sm:text-5xl tracking-widest">- Millwork -</h1>
+		<div class="relative pb-6 text-center">
+			<a href="/">
+				<img
+					src="/assets/Montrose_logo.PNG"
+					alt="Montrose Millwork"
+					class="mx-auto h-auto w-72 mix-blend-multiply sm:w-92"
+				/>
+			</a>
 		</div>
 		<div class="relative mx-auto">
 			@NavButtons(href, label)
@@ -93,9 +102,12 @@ templ Navbar(href, label string) {
 		x-bind:inert="!shown"
 		class="fixed inset-x-0 bottom-0 z-40 flex translate-y-full items-center justify-between gap-3 border-t border-zinc-700 bg-zinc-900/95 px-3 py-2 backdrop-blur transition-transform duration-300 sm:top-0 sm:bottom-auto sm:-translate-y-full sm:border-t-0 sm:border-b"
 	>
-		<a href="/" class="flex min-w-0 flex-col items-center leading-tight uppercase">
-			<span class="font-serif text-sm font-bold tracking-wide sm:text-lg">Montrose</span>
-			<span class="text-[0.6rem] tracking-widest sm:text-xs">- Millwork -</span>
+		<a href="/" class="flex min-w-0 items-center">
+			<span
+				role="img"
+				aria-label="Montrose Millwork"
+				class="h-8 w-[9.5rem] bg-vellum mask-[url(/assets/Montrose_logo_text_transparent.png)] mask-contain mask-center mask-no-repeat sm:h-14 sm:w-[12rem]"
+			></span>
 		</a>
 		@NavButtons(href, label)
 	</nav>

@@ -42,7 +42,7 @@ func Layout(title string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, " | Montrose Millwork</title><script src=\"https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4\"></script><script defer src=\"https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js\"></script><style>[x-cloak] { display: none !important; }</style><style type=\"text/tailwindcss\">\n\t\t\t\t@theme {\n\t\t\t\t\t--color-main: #60a5fa;\n\t\t\t\t\t--color-accent: #CA9C68;\n\t\t\t\t\t--color-vellum: #e8e0cc;\n\t\t\t\t}\n\t\t\t</style></head><body class=\"bg-zinc-900 text-gray-100 relative flex flex-col min-h-dvh max-w-screen\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, " | Montrose Millwork</title><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/assets/favicon/apple-touch-icon.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/assets/favicon/favicon-32x32.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/assets/favicon/favicon-16x16.png\"><link rel=\"manifest\" href=\"/assets/favicon/site.webmanifest\"><script src=\"https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4\"></script><script defer src=\"https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js\"></script><style>[x-cloak] { display: none !important; }</style><style type=\"text/tailwindcss\">\n\t\t\t\t@theme {\n\t\t\t\t\t--color-main: #60a5fa;\n\t\t\t\t\t--color-accent: #CA9C68;\n\t\t\t\t\t--color-vellum: #e8e0cc;\n\t\t\t\t}\n\t\t\t</style></head><body class=\"bg-zinc-900 text-gray-100 relative flex flex-col min-h-dvh max-w-screen\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -211,7 +211,7 @@ func Header(href, label string) templ.Component {
 			templ_7745c5c3_Var9 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<header id=\"header\" class=\"relative isolate overflow-hidden bg-[url(/assets/ash-bg-02.webp)] bg-center bg-cover flex flex-col justify-center min-h-72 sm:min-h-92\"><div class=\"relative pb-6 text-center text-zinc-900 uppercase\"><h1 class=\"text-5xl sm:text-6xl font-bold font-serif\">Montrose</h1><h1 class=\"text-4xl sm:text-5xl tracking-widest\">- Millwork -</h1></div><div class=\"relative mx-auto\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<header id=\"header\" class=\"relative isolate overflow-hidden bg-[url(/assets/ash-bg-02.webp)] bg-center bg-cover flex flex-col justify-center min-h-72 sm:min-h-92\"><div class=\"relative pb-6 text-center\"><a href=\"/\"><img src=\"/assets/Montrose_logo.PNG\" alt=\"Montrose Millwork\" class=\"mx-auto h-auto w-72 mix-blend-multiply sm:w-92\"></a></div><div class=\"relative mx-auto\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -252,7 +252,7 @@ func Navbar(href, label string) templ.Component {
 			templ_7745c5c3_Var10 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<nav x-data=\"{ shown: false }\" x-init=\"new IntersectionObserver(([e]) => shown = !e.isIntersecting).observe(document.getElementById('header'))\" x-bind:class=\"{ 'translate-y-full sm:-translate-y-full': !shown }\" x-bind:inert=\"!shown\" class=\"fixed inset-x-0 bottom-0 z-40 flex translate-y-full items-center justify-between gap-3 border-t border-zinc-700 bg-zinc-900/95 px-3 py-2 backdrop-blur transition-transform duration-300 sm:top-0 sm:bottom-auto sm:-translate-y-full sm:border-t-0 sm:border-b\"><a href=\"/\" class=\"flex min-w-0 flex-col items-center leading-tight uppercase\"><span class=\"font-serif text-sm font-bold tracking-wide sm:text-lg\">Montrose</span> <span class=\"text-[0.6rem] tracking-widest sm:text-xs\">- Millwork -</span></a>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<nav x-data=\"{ shown: false }\" x-init=\"new IntersectionObserver(([e]) => shown = !e.isIntersecting).observe(document.getElementById('header'))\" x-bind:class=\"{ 'translate-y-full sm:-translate-y-full': !shown }\" x-bind:inert=\"!shown\" class=\"fixed inset-x-0 bottom-0 z-40 flex translate-y-full items-center justify-between gap-3 border-t border-zinc-700 bg-zinc-900/95 px-3 py-2 backdrop-blur transition-transform duration-300 sm:top-0 sm:bottom-auto sm:-translate-y-full sm:border-t-0 sm:border-b\"><a href=\"/\" class=\"flex min-w-0 items-center\"><span role=\"img\" aria-label=\"Montrose Millwork\" class=\"h-8 w-[9.5rem] bg-vellum mask-[url(/assets/Montrose_logo_text_transparent.png)] mask-contain mask-center mask-no-repeat sm:h-14 sm:w-[12rem]\"></span></a>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
