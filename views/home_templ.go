@@ -45,7 +45,15 @@ func Home(reviews []Review) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, " <div class=\"flex flex-col gap-9 py-12 px-4\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, " ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = Services().Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, " <div class=\"flex flex-col gap-9 py-12 px-4\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -61,7 +69,7 @@ func Home(reviews []Review) templ.Component {
 					}()
 				}
 				ctx = templ.InitializeContext(ctx)
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "Marcus has always had a passion to build and create, and an eye for detail. In 2021 he discovered his love for finish carpentry and fine woodworking through a restoration apprenticeship. He and his wife have one son and seek to do all to the glory of God.")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "Marcus has always had a passion to build and create, and an eye for detail. In 2021 he discovered his love for finish carpentry and fine woodworking through a restoration apprenticeship. He and his wife have one son and seek to do all to the glory of God.")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -71,7 +79,7 @@ func Home(reviews []Review) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<!--\n\t\t\t@Profile(\"/assets/gil.webp\", \"Gilead Rose\", \"/assets/plates/book4-plate68.jpg\", true) {\n\t\t\t\tGilead loves finish carpentry so much he sacrificed half a finger. What more do you need to know?\n\t\t\t}\n\t\t\t--></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<!--\n\t\t\t@Profile(\"/assets/gil.webp\", \"Gilead Rose\", \"/assets/plates/book4-plate68.jpg\", true) {\n\t\t\t\tGilead loves finish carpentry so much he sacrificed half a finger. What more do you need to know?\n\t\t\t}\n\t\t\t--></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -82,6 +90,35 @@ func Home(reviews []Review) templ.Component {
 			return nil
 		})
 		templ_7745c5c3_Err = Layout("Home").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		return nil
+	})
+}
+
+func Services() templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
+			return templ_7745c5c3_CtxErr
+		}
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var4 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var4 == nil {
+			templ_7745c5c3_Var4 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<section class=\"relative isolate overflow-hidden px-6 py-16 sm:py-24 bg-zinc-900 text-vellum\"><figure class=\"mx-auto max-w-4xl text-center\"><div class=\"flex items-center gap-3 text-accent\" aria-hidden=\"true\"><span class=\"h-px flex-1 bg-current opacity-30\"></span> <span class=\"text-xs\">&#9670;</span> <span class=\"h-px flex-1 bg-current opacity-30\"></span></div><div class=\"my-8 font-serif text-3xl italic leading-snug text-balance sm:my-10 sm:text-5xl\">Services</div><p class=\"mb-8 font-serif text-md sm:text-lg uppercase tracking-[0.3em] opacity-70 sm:mb-10\">Cabinet Installation</p><p class=\"mb-8 font-serif text-md sm:text-lg uppercase tracking-[0.3em] opacity-70 sm:mb-10\">Custom Millwork</p><p class=\"mb-8 font-serif text-md sm:text-lg uppercase tracking-[0.3em] opacity-70 sm:mb-10\">Furniture Restoration</p><div class=\"flex items-center gap-3 text-accent\" aria-hidden=\"true\"><span class=\"h-px flex-1 bg-current opacity-30\"></span> <span class=\"text-xs\">&#9670;</span> <span class=\"h-px flex-1 bg-current opacity-30\"></span></div></figure></section>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

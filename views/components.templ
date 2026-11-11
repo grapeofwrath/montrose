@@ -128,7 +128,7 @@ templ ContactPanel() {
 			<p class="opacity-90">Contact</p>
 		</div>
 		<div class="flex flex-1 items-center justify-center p-4 sm:p-6">
-			<div class="flex w-full flex-col gap-4 border-accent p-4 text-center font-serif text-1xl sm:gap-5 sm:p-6 sm:text-2xl">
+			<div class="flex w-full flex-col gap-4 border-accent p-4 text-center font-serif text-xl sm:gap-5 sm:p-6 sm:text-2xl">
 				<div>
 					<div><span class="font-bold">Mon-Fri</span> 8:00AM - 6:00PM</div>
 					<div><span class="font-bold">Closed</span> Saturday & Sunday</div>
@@ -151,7 +151,7 @@ templ ContactPanel() {
 templ Profile(image, name, plate string, flip bool) {
 	<article class="relative isolate mx-auto w-full max-w-5xl overflow-hidden bg-zinc-900 ring-1 ring-zinc-700">
 		@PlateBg(plate, "inset-0 size-full object-cover opacity-[0.07] invert "+mirror(flip))
-		<div class={ "relative flex flex-col items-center gap-6 p-5 sm:p-8", templ.KV("sm:flex-row", !flip), templ.KV("sm:flex-row-reverse", flip) }>
+		<div class={ "relative flex flex-col items-center gap-6 p-8 sm:p-8", templ.KV("sm:flex-row", !flip), templ.KV("sm:flex-row-reverse", flip) }>
 			<figure class="shrink-0">
 				<div class="bg-zinc-800 p-1.5 shadow-lg">
 					<div class="border border-zinc-500/40 p-1">
@@ -159,8 +159,8 @@ templ Profile(image, name, plate string, flip bool) {
 					</div>
 				</div>
 			</figure>
-			<div class="flex w-72 max-w-full flex-col gap-3 text-left sm:w-auto sm:flex-1">
-				<p class="font-serif text-3xl">{ name }</p>
+			<div class="flex w-auto max-w-full flex-col gap-3 text-left sm:w-auto sm:flex-1">
+				<p class="font-serif text-3xl text-zinc-200">{ name }</p>
 				<div class="flex items-center gap-3 text-accent" aria-hidden="true">
 					<span class="h-px w-8 bg-current opacity-60"></span>
 					<span class="text-xs">&#9670;</span>

@@ -516,7 +516,7 @@ func ContactPanel() templ.Component {
 			templ_7745c5c3_Var27 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<div class=\"flex min-h-full flex-col bg-zinc-900 text-zinc-100 ring-1 ring-zinc-700 lg:flex-row\"><div class=\"min-h-42 sm:min-h-48 lg:w-3/5 bg-[url(/assets/ash-bg-02.webp)] bg-cover bg-center flex justify-center items-center font-serif font-bold uppercase text-5xl sm:text-6xl text-zinc-900\"><p class=\"opacity-90\">Contact</p></div><div class=\"flex flex-1 items-center justify-center p-4 sm:p-6\"><div class=\"flex w-full flex-col gap-4 border-accent p-4 text-center font-serif text-1xl sm:gap-5 sm:p-6 sm:text-2xl\"><div><div><span class=\"font-bold\">Mon-Fri</span> 8:00AM - 6:00PM</div><div><span class=\"font-bold\">Closed</span> Saturday & Sunday</div></div><div class=\"flex items-center gap-3 text-accent\" aria-hidden=\"true\"><span class=\"h-px flex-1 bg-current opacity-30\"></span> <span class=\"text-xs\">&#9670;</span> <span class=\"h-px flex-1 bg-current opacity-30\"></span></div><div class=\"break-words\"><a href=\"tel:+13608505204\" class=\"transition duration-300 hover:underline decoration-2 sm:decoration-3 decoration-accent\">360-850-5204</a><br><a href=\"mailto:info@montrosemillwork.com\" class=\"transition duration-300 hover:underline decoration-2 sm:decoration-3 decoration-accent\">info@montrosemillwork.com</a></div><p>5417 W Werner RD<br>Bremerton, WA 98312</p></div></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<div class=\"flex min-h-full flex-col bg-zinc-900 text-zinc-100 ring-1 ring-zinc-700 lg:flex-row\"><div class=\"min-h-42 sm:min-h-48 lg:w-3/5 bg-[url(/assets/ash-bg-02.webp)] bg-cover bg-center flex justify-center items-center font-serif font-bold uppercase text-5xl sm:text-6xl text-zinc-900\"><p class=\"opacity-90\">Contact</p></div><div class=\"flex flex-1 items-center justify-center p-4 sm:p-6\"><div class=\"flex w-full flex-col gap-4 border-accent p-4 text-center font-serif text-xl sm:gap-5 sm:p-6 sm:text-2xl\"><div><div><span class=\"font-bold\">Mon-Fri</span> 8:00AM - 6:00PM</div><div><span class=\"font-bold\">Closed</span> Saturday & Sunday</div></div><div class=\"flex items-center gap-3 text-accent\" aria-hidden=\"true\"><span class=\"h-px flex-1 bg-current opacity-30\"></span> <span class=\"text-xs\">&#9670;</span> <span class=\"h-px flex-1 bg-current opacity-30\"></span></div><div class=\"break-words\"><a href=\"tel:+13608505204\" class=\"transition duration-300 hover:underline decoration-2 sm:decoration-3 decoration-accent\">360-850-5204</a><br><a href=\"mailto:info@montrosemillwork.com\" class=\"transition duration-300 hover:underline decoration-2 sm:decoration-3 decoration-accent\">info@montrosemillwork.com</a></div><p>5417 W Werner RD<br>Bremerton, WA 98312</p></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -553,7 +553,7 @@ func Profile(image, name, plate string, flip bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var29 = []any{"relative flex flex-col items-center gap-6 p-5 sm:p-8", templ.KV("sm:flex-row", !flip), templ.KV("sm:flex-row-reverse", flip)}
+		var templ_7745c5c3_Var29 = []any{"relative flex flex-col items-center gap-6 p-8 sm:p-8", templ.KV("sm:flex-row", !flip), templ.KV("sm:flex-row-reverse", flip)}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var29...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -597,14 +597,14 @@ func Profile(image, name, plate string, flip bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "\" class=\"size-64 max-w-full object-cover sepia-[.15]\"></div></div></figure><div class=\"flex w-72 max-w-full flex-col gap-3 text-left sm:w-auto sm:flex-1\"><p class=\"font-serif text-3xl\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "\" class=\"size-64 max-w-full object-cover sepia-[.15]\"></div></div></figure><div class=\"flex w-auto max-w-full flex-col gap-3 text-left sm:w-auto sm:flex-1\"><p class=\"font-serif text-3xl text-zinc-200\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var33 string
 		templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.JoinStringErrs(name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/components.templ`, Line: 163, Col: 41}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/components.templ`, Line: 163, Col: 55}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var33))
 		if templ_7745c5c3_Err != nil {
