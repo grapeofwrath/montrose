@@ -82,7 +82,11 @@ func main() {
 	e.GET("/", homeHandler)
 	e.GET("/gallery", galleryHandler)
 
-	if err := e.Start(":5050"); err != nil {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "5050"
+	}
+	if err := e.Start(":"+port); err != nil {
 		e.Logger.Error("server stopped", "error", err)
 	}
 }
