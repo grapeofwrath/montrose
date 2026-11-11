@@ -37,7 +37,7 @@
         {
           default = pkgs.buildGoModule {
             pname = "montrose";
-            version = "1.0.2";
+            version = "1.0.3";
             src = ./.;
             vendorHash = "sha256-csjga/uxJMtqH3Zxf02/kFhxqO22/oSNLlUWSd3s1D8=";
             postInstall = ''
