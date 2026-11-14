@@ -21,8 +21,8 @@ type Image struct {
 
 func galleryData(images []Image) string {
 	b, _ := json.Marshal(images)
-	return carouselData(len(images), "grid: false, imgs: "+string(b)+
-		", show(k) { this.i = k; this.grid = false; this.$nextTick(() => this.$refs.stage.scrollIntoView()) },")
+	return carouselData(len(images), "grid: false, r: '', imgs: "+string(b)+
+		", fit(img) { this.r = img.naturalWidth + ' / ' + img.naturalHeight }, show(k) { this.i = k; this.grid = false; this.$nextTick(() => this.$refs.stage.scrollIntoView()) },")
 }
 
 func Gallery(images []Image) templ.Component {
@@ -91,14 +91,14 @@ func Gallery(images []Image) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<span class=\"h-px flex-1 bg-accent opacity-30\" aria-hidden=\"true\"></span></div><figure x-show=\"!grid\" class=\"mx-auto max-w-4xl touch-pan-y bg-zinc-800 p-1.5 shadow-lg\" x-on:touchstart.passive=\"start($event)\" x-on:touchend=\"end($event)\" x-on:wheel=\"wheel($event)\"><div class=\"relative border border-accent/40 p-1\"><a x-bind:href=\"imgs[i].Src\" x-on:click.prevent><img src=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<span class=\"h-px flex-1 bg-accent opacity-30\" aria-hidden=\"true\"></span></div><figure x-show=\"!grid\" class=\"mx-auto max-w-4xl touch-pan-y bg-zinc-800 p-1.5 shadow-lg\" x-on:touchstart.passive=\"start($event)\" x-on:touchend=\"end($event)\" x-on:wheel=\"wheel($event)\"><div class=\"relative border border-accent/40 p-1 transition-[aspect-ratio] duration-500\" x-bind:style=\"r && 'aspect-ratio: ' + r\"><a x-bind:href=\"imgs[i].Src\" x-on:click.prevent class=\"block h-full\"><img x-init=\"$el.complete && fit($el)\" x-on:load=\"fit($el)\" src=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.ResolveAttributeValue(images[0].Src)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 49, Col: 27}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 54, Col: 27}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4)
 				if templ_7745c5c3_Err != nil {
@@ -111,13 +111,13 @@ func Gallery(images []Image) templ.Component {
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.ResolveAttributeValue(images[0].Alt)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 50, Col: 27}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 55, Col: 27}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "\" x-bind:src=\"imgs[i].Src\" x-bind:alt=\"imgs[i].Alt\" draggable=\"false\" class=\"h-[67dvh] sm:h-[72dvh] w-full select-none bg-zinc-900 object-contain\"></a> ")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "\" x-bind:src=\"imgs[i].Src\" x-bind:alt=\"imgs[i].Alt\" draggable=\"false\" class=\"h-full w-full select-none bg-zinc-900 object-contain\"></a> ")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -142,7 +142,7 @@ func Gallery(images []Image) templ.Component {
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(len(images)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 63, Col: 71}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 68, Col: 71}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -206,7 +206,7 @@ func ArrowButton(label, action, side string, flip bool) templ.Component {
 		var templ_7745c5c3_Var9 string
 		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.ResolveAttributeValue(action)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 79, Col: 21}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 84, Col: 21}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var9)
 		if templ_7745c5c3_Err != nil {
@@ -219,7 +219,7 @@ func ArrowButton(label, action, side string, flip bool) templ.Component {
 		var templ_7745c5c3_Var10 string
 		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.ResolveAttributeValue(label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 80, Col: 20}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 85, Col: 20}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var10)
 		if templ_7745c5c3_Err != nil {
@@ -300,7 +300,7 @@ func GalleryFigure(img Image) templ.Component {
 		var templ_7745c5c3_Var14 templ.SafeURL
 		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinURLErrs(img.Src)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 91, Col: 19}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 96, Col: 19}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 		if templ_7745c5c3_Err != nil {
@@ -313,7 +313,7 @@ func GalleryFigure(img Image) templ.Component {
 		var templ_7745c5c3_Var15 string
 		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.ResolveAttributeValue("$event.preventDefault(); show(" + strconv.Itoa(img.Num-1) + ")")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 91, Col: 99}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 96, Col: 99}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var15)
 		if templ_7745c5c3_Err != nil {
@@ -326,7 +326,7 @@ func GalleryFigure(img Image) templ.Component {
 		var templ_7745c5c3_Var16 string
 		templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.ResolveAttributeValue(img.Src)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 93, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 98, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var16)
 		if templ_7745c5c3_Err != nil {
@@ -339,7 +339,7 @@ func GalleryFigure(img Image) templ.Component {
 		var templ_7745c5c3_Var17 string
 		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.ResolveAttributeValue(img.Alt)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 93, Col: 38}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 98, Col: 38}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var17)
 		if templ_7745c5c3_Err != nil {
@@ -352,7 +352,7 @@ func GalleryFigure(img Image) templ.Component {
 		var templ_7745c5c3_Var18 string
 		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(img.Num))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 97, Col: 31}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/gallery.templ`, Line: 102, Col: 31}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 		if templ_7745c5c3_Err != nil {

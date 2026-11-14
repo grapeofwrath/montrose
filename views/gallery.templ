@@ -13,8 +13,8 @@ type Image struct {
 
 func galleryData(images []Image) string {
 	b, _ := json.Marshal(images)
-	return carouselData(len(images), "grid: false, imgs: "+string(b)+
-		", show(k) { this.i = k; this.grid = false; this.$nextTick(() => this.$refs.stage.scrollIntoView()) },")
+	return carouselData(len(images), "grid: false, r: '', imgs: "+string(b)+
+		", fit(img) { this.r = img.naturalWidth + ' / ' + img.naturalHeight }, show(k) { this.i = k; this.grid = false; this.$nextTick(() => this.$refs.stage.scrollIntoView()) },")
 }
 
 templ Gallery(images []Image) {
@@ -43,15 +43,20 @@ templ Gallery(images []Image) {
 					x-on:touchend="end($event)"
 					x-on:wheel="wheel($event)"
 				>
-					<div class="relative border border-accent/40 p-1">
-						<a x-bind:href="imgs[i].Src" x-on:click.prevent>
+					<div
+						class="relative border border-accent/40 p-1 transition-[aspect-ratio] duration-500"
+						x-bind:style="r && 'aspect-ratio: ' + r"
+					>
+						<a x-bind:href="imgs[i].Src" x-on:click.prevent class="block h-full">
 							<img
+								x-init="$el.complete && fit($el)"
+								x-on:load="fit($el)"
 								src={ images[0].Src }
 								alt={ images[0].Alt }
 								x-bind:src="imgs[i].Src"
 								x-bind:alt="imgs[i].Alt"
 								draggable="false"
-								class="h-[67dvh] sm:h-[72dvh] w-full select-none bg-zinc-900 object-contain"
+								class="h-full w-full select-none bg-zinc-900 object-contain"
 							/>
 						</a>
 						if len(images) > 1 {
