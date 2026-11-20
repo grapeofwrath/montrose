@@ -1,7 +1,7 @@
 package views
 
 templ Layout(title string) {
-	<!doctype html>
+	<!DOCTYPE html>
 	<html lang="en">
 		<head>
 			<meta charset="UTF-8"/>
@@ -11,7 +11,6 @@ templ Layout(title string) {
 			<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"/>
 			<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"/>
 			<link rel="manifest" href="/assets/favicon/site.webmanifest"/>
-
 			<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 			<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 			<!-- Privacy-friendly analytics by Plausible -->
@@ -20,7 +19,6 @@ templ Layout(title string) {
 			  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
 			  plausible.init()
 			</script>
-
 			<style>[x-cloak] { display: none !important; }</style>
 			<style type="text/tailwindcss">
 				@theme {
@@ -92,9 +90,12 @@ templ Footer(plate string) {
 			<div class="mx-auto max-w-5xl grid gap-9 text-center sm:grid-cols-2 sm:gap-x-12 sm:text-left">
 				<div class="sm:text-right">
 					<address class="not-italic">
-						Montrose Millwork, LLC.<br/>
-						5417 W Werner RD<br/>
-						Bremerton, WA 98312<br/>
+						Montrose Millwork, LLC.
+						<br/>
+						5417 W Werner RD
+						<br/>
+						Bremerton, WA 98312
+						<br/>
 					</address>
 					<p>LN: MONTRML741P1</p>
 				</div>
@@ -135,4 +136,3 @@ templ Footer(plate string) {
 		</div>
 	</footer>
 }
-

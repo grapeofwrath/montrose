@@ -86,7 +86,7 @@ func main() {
 	if port == "" {
 		port = "5050"
 	}
-	if err := e.Start(":"+port); err != nil {
+	if err := e.Start(":" + port); err != nil {
 		e.Logger.Error("server stopped", "error", err)
 	}
 }

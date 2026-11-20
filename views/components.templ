@@ -139,7 +139,8 @@ templ ContactPanel() {
 					<span class="h-px flex-1 bg-current opacity-30"></span>
 				</div>
 				<div class="break-words">
-					<a href="tel:+13608505204" class="transition duration-300 hover:underline decoration-2 sm:decoration-3 decoration-accent">360-850-5204</a><br/>
+					<a href="tel:+13608505204" class="transition duration-300 hover:underline decoration-2 sm:decoration-3 decoration-accent">360-850-5204</a>
+					<br/>
 					<a href="mailto:info@montrosemillwork.com" class="transition duration-300 hover:underline decoration-2 sm:decoration-3 decoration-accent">info@montrosemillwork.com</a>
 				</div>
 				<p>5417 W Werner RD<br/>Bremerton, WA 98312</p>
@@ -166,7 +167,9 @@ templ Profile(image, name, plate string, flip bool) {
 					<span class="text-xs">&#9670;</span>
 					<span class="h-px flex-1 bg-current opacity-30"></span>
 				</div>
-				<p class="font-serif text-lg text-zinc-200">{ children... }</p>
+				<p class="font-serif text-lg text-zinc-200">
+					{ children... }
+				</p>
 			</div>
 		</div>
 	</article>
