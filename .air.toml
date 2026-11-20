@@ -1,5 +1,5 @@
 [build]
-  cmd = "templ generate && go build -o ./tmp/main ."
+  cmd = "templ generate && CGO_ENABLED=0 go build -o ./tmp/main ."
   full_bin = "PORT=5051 ./tmp/main"
   include_ext = ["go", "templ"]
   exclude_regex = ["_templ\\.go"]
