@@ -243,7 +243,7 @@ func Modal(label string, panelClass string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</div><button type=\"button\" @click=\"isOpen = false\" aria-label=\"Close\" class=\"absolute top-2 right-2 z-10 p-2 rounded-full bg-black/40 text-white hover:bg-black/60 transition duration-300\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</div><button type=\"button\" @click=\"isOpen = false\" aria-label=\"Close\" class=\"absolute top-2 right-2 z-10 p-2 bg-black/40 text-white hover:bg-black/60 transition duration-300\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -418,7 +418,7 @@ func SocialLink(href, label string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "\" class=\"p-2 rounded-full text-gray-100 hover:bg-zinc-700 hover:text-accent transition duration-300\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "\" class=\"p-2 text-gray-100 hover:bg-zinc-700 hover:text-accent transition duration-300\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

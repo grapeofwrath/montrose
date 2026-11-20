@@ -67,7 +67,7 @@ templ Modal(label string, panelClass string) {
 						type="button"
 						@click="isOpen = false"
 						aria-label="Close"
-						class="absolute top-2 right-2 z-10 p-2 rounded-full bg-black/40 text-white hover:bg-black/60 transition duration-300"
+						class="absolute top-2 right-2 z-10 p-2 bg-black/40 text-white hover:bg-black/60 transition duration-300"
 					>
 						@SVG("24", "text-white") {
 							<line x1="18" y1="6" x2="6" y2="18"></line>
@@ -104,7 +104,7 @@ templ SocialLink(href, label string) {
 		rel="noopener noreferrer"
 		aria-label={ label }
 		title={ label }
-		class="p-2 rounded-full text-gray-100 hover:bg-zinc-700 hover:text-accent transition duration-300"
+		class="p-2 text-gray-100 hover:bg-zinc-700 hover:text-accent transition duration-300"
 	>
 		{ children... }
 	</a>
